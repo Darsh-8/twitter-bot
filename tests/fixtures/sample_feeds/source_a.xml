@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Source A</title>
+    <item>
+      <title>OpenAI releases GPT-6 with major reasoning upgrades</title>
+      <link>https://source-a.example.com/gpt-6-launch</link>
+      <guid>https://source-a.example.com/gpt-6-launch</guid>
+      <description>OpenAI announced GPT-6 today, focused on long-context reasoning and coding performance.</description>
+      <pubDate>Mon, 20 Jul 2026 10:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Source B</title>
+    <item>
+      <title>OpenAI unveils GPT-6, its newest flagship model</title>
+      <link>https://source-b.example.com/openai-gpt6</link>
+      <guid>https://source-b.example.com/openai-gpt6</guid>
+      <description>OpenAI today launched GPT-6, emphasizing reasoning and faster code generation.</description>
+      <pubDate>Mon, 20 Jul 2026 10:05:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
