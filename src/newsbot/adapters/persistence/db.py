@@ -33,3 +33,17 @@ async def session_scope() -> AsyncIterator[AsyncSession]:
         except Exception:
             await session.rollback()
             raise
+
+
+async def dispose_engine() -> None:
+    """Close pooled connections before the current event loop shuts down.
+
+    Each Celery task runs via asyncio.run(), which creates a fresh event
+    loop per invocation. asyncpg connections are bound to the loop that
+    opened them, so a pooled connection from a previous task's loop can't
+    be reused in the next -- disposing at the end of every task run
+    empties the pool so the next asyncio.run() starts clean.
+    """
+    global _engine
+    if _engine is not None:
+        await _engine.dispose()

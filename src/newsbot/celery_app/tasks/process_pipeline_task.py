@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 
 import structlog
 
-from newsbot.adapters.persistence.db import session_scope
+from newsbot.adapters.persistence.db import dispose_engine, session_scope
 from newsbot.adapters.persistence.models_orm import PipelineRunORM
 from newsbot.application.interfaces.llm_provider import LLMProviderError
 from newsbot.celery_app.celery import celery_app
@@ -41,4 +41,10 @@ async def _run() -> dict:
     max_retries=3,
 )
 def process_pipeline(self) -> dict:
-    return asyncio.run(_run())
+    async def _wrapped() -> dict:
+        try:
+            return await _run()
+        finally:
+            await dispose_engine()
+
+    return asyncio.run(_wrapped())
