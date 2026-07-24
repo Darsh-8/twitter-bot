@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     anthropic_api_key: SecretStr | None = None
     openai_api_key: SecretStr | None = None
     groq_api_key: SecretStr | None = None
+    groq_api_keys: SecretStr | None = None
     gemini_api_key: SecretStr | None = None
 
     x_api_key: SecretStr | None = None

@@ -22,12 +22,14 @@ def get_llm_provider(settings: Settings) -> LLMProvider:
             model=settings.llm_model_openai,
         )
     if settings.llm_provider == "groq":
-        if not settings.groq_api_key:
-            raise RuntimeError("GROQ_API_KEY is required when LLM_PROVIDER=groq")
-        return GroqLLMProvider(
-            api_key=settings.groq_api_key.get_secret_value(),
-            model=settings.llm_model_groq,
-        )
+        keys: list[str] = []
+        if settings.groq_api_keys:
+            keys = [k.strip() for k in settings.groq_api_keys.get_secret_value().split(",") if k.strip()]
+        elif settings.groq_api_key:
+            keys = [settings.groq_api_key.get_secret_value()]
+        if not keys:
+            raise RuntimeError("GROQ_API_KEY or GROQ_API_KEYS is required when LLM_PROVIDER=groq")
+        return GroqLLMProvider(api_keys=keys, model=settings.llm_model_groq)
     if settings.llm_provider == "gemini":
         if not settings.gemini_api_key:
             raise RuntimeError("GEMINI_API_KEY is required when LLM_PROVIDER=gemini")
