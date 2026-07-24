@@ -72,3 +72,7 @@ class GroqLLMProvider(OpenAICompatibleJSONProvider):
                 ) from exc
 
         raise last_error or LLMProviderError(f"{self.provider_label}: all API keys unavailable", retryable=True)
+
+    async def aclose(self) -> None:
+        for client in self._clients:
+            await client.close()

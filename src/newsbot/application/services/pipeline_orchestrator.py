@@ -49,6 +49,7 @@ class PipelineOrchestrator:
         enable_story_council: bool = False,
         council_max_candidates_per_cycle: int = 3,
         max_story_age_for_posting_hours: int = 24,
+        llm_provider: object | None = None,
     ) -> None:
         self._ingestion = ingestion_service
         self._dedup = dedup_service
@@ -66,6 +67,12 @@ class PipelineOrchestrator:
         self._enable_story_council = enable_story_council and story_council_service is not None
         self._council_max_candidates_per_cycle = council_max_candidates_per_cycle
         self._max_story_age_for_posting_hours = max_story_age_for_posting_hours
+        self._llm_provider = llm_provider
+
+    async def aclose(self) -> None:
+        aclose = getattr(self._llm_provider, "aclose", None)
+        if aclose is not None:
+            await aclose()
 
     async def run_poll_cycle(self) -> dict:
         stats = await self._ingestion.poll_all_sources()

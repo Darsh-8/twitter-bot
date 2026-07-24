@@ -32,3 +32,7 @@ class LLMProvider(Protocol):
     ) -> list[TweetDraftResult]:
         """Phase 2: multi-tweet thread generation. Not implemented in the MVP."""
         raise NotImplementedError("Thread generation is a Phase 2 feature")
+
+    async def aclose(self) -> None:
+        """Release the underlying HTTP client(s) before the event loop closes."""
+        ...

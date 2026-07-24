@@ -29,6 +29,7 @@ async def _run() -> int:
         finally:
             run.finished_at = datetime.now(timezone.utc)
             run.stats = {"posted": posted}
+            await orchestrator.aclose()
     return posted
 
 

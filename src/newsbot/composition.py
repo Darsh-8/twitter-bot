@@ -112,4 +112,5 @@ def build_orchestrator(session: AsyncSession, settings: Settings | None = None) 
         enable_story_council=settings.enable_story_council,
         council_max_candidates_per_cycle=settings.council_max_candidates_per_cycle,
         max_story_age_for_posting_hours=settings.max_story_age_for_posting_hours,
+        llm_provider=llm,
     )

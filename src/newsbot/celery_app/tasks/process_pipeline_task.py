@@ -29,6 +29,7 @@ async def _run() -> dict:
         finally:
             run.finished_at = datetime.now(timezone.utc)
             run.stats = stats
+            await orchestrator.aclose()
     return stats or {}
 
 

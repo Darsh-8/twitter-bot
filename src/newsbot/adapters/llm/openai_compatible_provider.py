@@ -108,3 +108,6 @@ class OpenAICompatibleJSONProvider:
 
     async def generate_thread(self, story: StoryContext, style_hint: str) -> list[TweetDraftResult]:
         raise NotImplementedError("Thread generation is a Phase 2 feature")
+
+    async def aclose(self) -> None:
+        await self._client.close()
